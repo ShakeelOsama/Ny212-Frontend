@@ -1,8 +1,8 @@
 "use client";
 import { useRef, useEffect, useState, useCallback } from "react";
 import Image from "next/image";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://wise-book-dea9d4bff7.strapiapp.com";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { API_URL } from "@/lib/utils";
 
 export default function CategoryCarousel({ categories, selectedCat, onSelect }) {
   const scrollContainerRef = useRef(null);

@@ -3,8 +3,7 @@ import { useState, useCallback, memo, useEffect } from "react";
 import { Dialog, DialogContent, DialogClose, DialogTitle } from "@/components/ui/dialog";
 import Image from "next/image";
 import { X } from "lucide-react";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
+import { API_URL } from "@/lib/utils";
 
 const ProductDetail = memo(function ProductDetail({ product, isOpen, onClose }) {
   const [quantity, setQuantity] = useState(1);

@@ -3,8 +3,7 @@ import FoodCard from "@/app/components/FoodCard";
 import Image from "next/image";
 import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://wise-book-dea9d4bff7.strapiapp.com";
+import { API_URL } from "@/lib/utils";
 
 export default function GroupedProductSections({ categories, groupedProducts, sectionRefs }) {
   const [loadedImages, setLoadedImages] = useState({});

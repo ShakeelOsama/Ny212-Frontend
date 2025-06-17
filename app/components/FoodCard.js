@@ -3,8 +3,7 @@ import { useState, useCallback, memo } from "react";
 import Image from "next/image";
 import ProductDetail from "@/app/components/ProductDetail";
 import { useRouter, useSearchParams } from "next/navigation";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
+import { API_URL } from "@/lib/utils";
 
 const FoodCard = memo(function FoodCard({ food, priority }) {
   const [showDetail, setShowDetail] = useState(false);

@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://wise-book-dea9d4bff7.strapiapp.com";
+import { API_URL } from "@/lib/utils";
 
 /**
  * Ensure URL is absolute
@@ -74,8 +74,9 @@ export default async function fetchData() {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
+      // For SSG, we want to cache the data at build time
       next: {
-        revalidate: 60 // Cache for 1 minute
+        revalidate: 3600 // Cache for 1 hour during build
       }
     });
 
@@ -98,9 +99,11 @@ export default async function fetchData() {
       });
     }
 
+    console.log(`Successfully fetched ${transformedProducts.length} products`);
     return transformedProducts;
   } catch (error) {
     console.error("Error fetching products:", error);
+    // Return empty array instead of throwing to prevent build failures
     return [];
   }
 }

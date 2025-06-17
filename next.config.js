@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Enable static generation with hybrid approach
+  trailingSlash: true,
   images: {
     remotePatterns: [
       {
@@ -24,23 +26,17 @@ const nextConfig = {
   },
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ['@heroicons/react', '@headlessui/react'],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  webpack: (config, { dev, isServer }) => {
-    if (!dev && !isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        net: false,
-        tls: false,
-        crypto: false,
-      };
-    }
-    return config;
+  // Optimize for static generation
+  generateBuildId: async () => {
+    return 'ny212-pizza-' + Date.now();
   },
+  // Enable static optimization
+  compress: true,
+  poweredByHeader: false,
 }
 
 module.exports = nextConfig 

@@ -1,5 +1,5 @@
 // fetchCategories.js
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://wise-book-dea9d4bff7.strapiapp.com";
+import { API_URL } from "@/lib/utils";
 
 export default async function fetchCategories() {
   try {
@@ -11,7 +11,10 @@ export default async function fetchCategories() {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      cache: "no-store",
+      // For SSG, we want to cache the data at build time
+      next: {
+        revalidate: 3600 // Cache for 1 hour during build
+      }
     });
 
     if (!res.ok) {
@@ -54,9 +57,11 @@ export default async function fetchCategories() {
     });
 
     console.log('All transformed categories:', categories);
+    console.log(`Successfully fetched ${categories.length} categories`);
     return categories;
   } catch (error) {
     console.error("Error fetching categories:", error);
+    // Return empty array instead of throwing to prevent build failures
     return [];
   }
 }
